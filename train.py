@@ -188,9 +188,21 @@ def main():
 
     data = sio.loadmat(mat_path, squeeze_me=False)
 
-    p_bs = np.asarray(data['p_bs'], dtype=float)
+    if 'p_bs' in data:
+        p_bs = np.asarray(data['p_bs'], dtype=float)
+    elif 'BS_positions' in data:
+        p_bs = np.asarray(data['BS_positions'], dtype=float)
+    else:
+        raise KeyError("Base station position variable not found.")
+
     d_hat = np.asarray(data['d_hat'], dtype=float)
-    p = np.asarray(data['p'], dtype=float)
+
+    if 'p' in data:
+        p = np.asarray(data['p'], dtype=float)
+    elif 'UE_positions' in data:
+        p = np.asarray(data['UE_positions'], dtype=float)
+    else:
+        p = None
 
     num_user = d_hat.shape[1]
     p_hat = np.zeros((2, num_user), dtype=float)
@@ -199,7 +211,6 @@ def main():
         p_hat[:, u] = your_algorithm(d_hat[:, u], p_bs)
 
     return p_hat
-
 
 if __name__ == "__main__":
     main()
