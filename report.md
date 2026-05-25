@@ -61,12 +61,12 @@ $$
 먼저 $S_0$ 전체를 사용하여 하나의 위치 후보를 계산한다.
 
 $$
-\hat p_{S_0}
+\hat{p}_{S_{0}}
 =
-\arg\min_p
-\sum_{i\in S_0}
+\arg\min_{p}
+\sum_{i \in S_{0}}
 \left(
-\|p-p_{bs,i}\|-\tilde d_i
+\|p-p_{bs,i}\|-\tilde{d}_{i}
 \right)^2
 $$
 
